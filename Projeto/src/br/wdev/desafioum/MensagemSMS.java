@@ -2,8 +2,11 @@ package br.wdev.desafioum;
 
 public class MensagemSMS {
 
-	public String getSMS(String valueText){
+	public String getSMS(String valueText) throws Exception{
 		String[] texto = valueText.split("");
+		if(texto.length>255){
+			throw new Exception("Mensagem Limitada a 255 Caracteres");
+		}
 		String sms = "";
 		String ultimaLetra = "";
 		for (int i = 0; i < texto.length; i++) {
@@ -25,9 +28,14 @@ public class MensagemSMS {
 	}
 	
 	public static void main(String[] args) {
-		String texto = "QUERO TRABALHAR NA WDEV";
-		String sms = new MensagemSMS().getSMS(texto);
-		System.out.println(sms);
+		try {
+			String texto = "QUERO TRABALHAR NA WDEV";
+			String sms;
+			sms = new MensagemSMS().getSMS(texto);
+			System.out.println(sms);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
